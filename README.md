@@ -1,3 +1,3 @@
 # Linux-Labs
 
-This repository is the collection of labs during the journey of RedHat Certified System Administrator
+This repository is the collection of labs during the journey of Learning Linux System Administration
