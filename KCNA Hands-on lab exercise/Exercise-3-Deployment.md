@@ -1,4 +1,4 @@
-# Exercise3-Deployment
+# Exercise-3-Deployment
 
 ```bash
 root@control-plane:~# kubectl get deployment
