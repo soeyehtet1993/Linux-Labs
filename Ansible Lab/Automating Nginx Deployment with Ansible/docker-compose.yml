@@ -1,0 +1,44 @@
+services:
+  ansible-control:
+    image: quay.io/ansible/ansible-runner
+    container_name: ansible-control
+    volumes:
+      - E:/Study/Ansible/playbook:/ansible # to store Ansible playbooks persistently. Please change the path from E:/Study/Ansible according to your test.
+    networks:
+      - ansible_network
+    tty: true # For TTY
+    stdin_open: true # For Interactive
+    command: |
+      /bin/bash -c "
+      mkdir -p ~/.ssh && \
+      mkdir -p /ansible && \
+      ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa -q -N '' && \
+      sshpass -p 'ansible' ssh-copy-id -o StrictHostKeyChecking=no ansible@web-server-1 && \
+      sshpass -p 'ansible' ssh-copy-id -o StrictHostKeyChecking=no ansible@web-server-2 && \
+      tail -f /dev/null
+      "
+#sshpass command is for each web server. 
+  web-server-1:
+    image: docker.io/08061993/ssh:ubuntu
+    container_name: web-server-1
+    ports:
+      - 80:80
+    networks:
+      - ansible_network
+    tty: true
+    stdin_open: true
+  web-server-2:
+    image: docker.io/08061993/ssh:ubuntu
+    container_name: web-server-2
+    ports:
+      - 81:80
+    networks:
+      - ansible_network
+    tty: true
+    stdin_open: true
+
+networks:
+  ansible_network:
+
+
+
