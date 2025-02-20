@@ -1,1 +1,0 @@
-This file is a testing file for Git Desktop.
